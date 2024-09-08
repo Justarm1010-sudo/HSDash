@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harlem Strong Data Dashboard</title>
+</head>
+<body>
+    <h1>HS Dashboard</h1>
+    
+    <form action="/analyze" method="post">
+        <label for="period">Select Period:</label>
+        <select id="period" name="period" required>
+            {% for period in periods %}
+                <option value="{{ period }}" {% if period == selected_period %}selected{% endif %}>{{ period }}</option>
+            {% endfor %}
+        </select>
+        
+        <button type="submit">Access Period Data</button>
+    </form>
+    
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    
+    {% if avg_per_site %}
+        <h2>Average Screening Level for Each Site: {{ selected_period }}</h2>
+        {{ avg_per_site|safe }}
+    {% endif %}
+
+    {% if avg_period is not none %}
+        <h2>Average Screening Score for the Period: {{ selected_period }}</h2>
+        <p>{{ avg_period }}</p>
+    {% endif %}
+
+    {% if moran_results is not none %}
+        <h2>I-Moran Results for the Period: {{ selected_period }}</h2>
+        <p>{{ moran_results }}</p>
+    {% endif %}
+
+    {% if map_html %}
+        <h2>Map Visualization for the Period: {{ selected_period }}</h2>
+        {{ map_html|safe }}
+    {% endif %}
+</body>
+</html>

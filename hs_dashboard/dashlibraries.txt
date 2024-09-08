@@ -1,0 +1,9 @@
+flask
+pandas
+openpyxl
+geopandas
+folium
+esda
+fiona
+shapely
+cython
